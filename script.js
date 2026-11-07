@@ -94,8 +94,13 @@ document.addEventListener('DOMContentLoaded', () => {
 
     if (toggleFullscreenBtn) {
       toggleFullscreenBtn.addEventListener('click', () => {
+        heroVideo.classList.add('is-fullscreen-mode');
+        heroVideo.style.setProperty('object-fit', 'contain', 'important');
+        heroVideo.style.setProperty('background-color', '#000000', 'important');
+        heroVideo.setAttribute('controls', 'true');
+
         if (heroVideo.requestFullscreen) {
-          heroVideo.requestFullscreen();
+          heroVideo.requestFullscreen().catch(() => {});
         } else if (heroVideo.webkitRequestFullscreen) {
           heroVideo.webkitRequestFullscreen();
         } else if (heroVideo.webkitEnterFullscreen) {
@@ -107,10 +112,16 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     const onFullscreenChange = () => {
-      const isFullscreen = document.fullscreenElement || document.webkitFullscreenElement || document.mozFullScreenElement || document.msFullscreenElement;
+      const isFullscreen = !!(document.fullscreenElement || document.webkitFullscreenElement || document.mozFullScreenElement || document.msFullscreenElement);
       if (isFullscreen) {
+        heroVideo.classList.add('is-fullscreen-mode');
+        heroVideo.style.setProperty('object-fit', 'contain', 'important');
+        heroVideo.style.setProperty('background-color', '#000000', 'important');
         heroVideo.setAttribute('controls', 'true');
       } else {
+        heroVideo.classList.remove('is-fullscreen-mode');
+        heroVideo.style.removeProperty('object-fit');
+        heroVideo.style.removeProperty('background-color');
         heroVideo.removeAttribute('controls');
       }
     };
