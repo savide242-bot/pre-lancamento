@@ -19,11 +19,6 @@ document.addEventListener('DOMContentLoaded', () => {
   const minutesEl1 = document.getElementById('timerMinutes');
   const secondsEl1 = document.getElementById('timerSeconds');
 
-  const daysEl2 = document.getElementById('timerDays2');
-  const hoursEl2 = document.getElementById('timerHours2');
-  const minutesEl2 = document.getElementById('timerMinutes2');
-  const secondsEl2 = document.getElementById('timerSeconds2');
-
   function updateCountdown() {
     const now = new Date().getTime();
     const distance = targetDate - now;
@@ -34,11 +29,6 @@ document.addEventListener('DOMContentLoaded', () => {
       if (hoursEl1) hoursEl1.textContent = zero;
       if (minutesEl1) minutesEl1.textContent = zero;
       if (secondsEl1) secondsEl1.textContent = zero;
-
-      if (daysEl2) daysEl2.textContent = zero;
-      if (hoursEl2) hoursEl2.textContent = zero;
-      if (minutesEl2) minutesEl2.textContent = zero;
-      if (secondsEl2) secondsEl2.textContent = zero;
       return;
     }
 
@@ -49,22 +39,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const pad = (num) => String(num).padStart(2, '0');
 
-    const formattedDays = String(days);
-    const formattedHours = pad(hours);
-    const formattedMinutes = pad(minutes);
-    const formattedSeconds = pad(seconds);
-
-    // Primary Countdown
-    if (daysEl1) daysEl1.textContent = formattedDays;
-    if (hoursEl1) hoursEl1.textContent = formattedHours;
-    if (minutesEl1) minutesEl1.textContent = formattedMinutes;
-    if (secondsEl1) secondsEl1.textContent = formattedSeconds;
-
-    // Secondary Countdown
-    if (daysEl2) daysEl2.textContent = formattedDays;
-    if (hoursEl2) hoursEl2.textContent = formattedHours;
-    if (minutesEl2) minutesEl2.textContent = formattedMinutes;
-    if (secondsEl2) secondsEl2.textContent = formattedSeconds;
+    if (daysEl1) daysEl1.textContent = String(days);
+    if (hoursEl1) hoursEl1.textContent = pad(hours);
+    if (minutesEl1) minutesEl1.textContent = pad(minutes);
+    if (secondsEl1) secondsEl1.textContent = pad(seconds);
   }
 
   updateCountdown();
@@ -127,6 +105,20 @@ document.addEventListener('DOMContentLoaded', () => {
         }
       });
     }
+
+    const onFullscreenChange = () => {
+      const isFullscreen = document.fullscreenElement || document.webkitFullscreenElement || document.mozFullScreenElement || document.msFullscreenElement;
+      if (isFullscreen) {
+        heroVideo.setAttribute('controls', 'true');
+      } else {
+        heroVideo.removeAttribute('controls');
+      }
+    };
+
+    document.addEventListener('fullscreenchange', onFullscreenChange);
+    document.addEventListener('webkitfullscreenchange', onFullscreenChange);
+    document.addEventListener('mozfullscreenchange', onFullscreenChange);
+    document.addEventListener('MSFullscreenChange', onFullscreenChange);
   }
 
 

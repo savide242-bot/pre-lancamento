@@ -673,6 +673,26 @@ button {
   background: #000;
 }
 
+/* Fullscreen 9:16 Aspect Ratio preservation (no zoom, no crop) */
+video:fullscreen,
+video:-webkit-full-screen,
+video:-moz-full-screen,
+video:-ms-fullscreen,
+.screen-video:fullscreen,
+.screen-video:-webkit-full-screen,
+.screen-video:-moz-full-screen,
+.screen-video:-ms-fullscreen {
+  object-fit: contain !important;
+  background-color: #000000 !important;
+  width: 100vw !important;
+  height: 100vh !important;
+}
+
+video::backdrop,
+.screen-video::backdrop {
+  background-color: #000000 !important;
+}
+
 .video-overlay-controls {
   position: absolute;
   bottom: 20px;

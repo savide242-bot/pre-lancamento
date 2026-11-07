@@ -1,8 +1,9 @@
-# Large video files (>100MB exceeds GitHub push limit without Git LFS)
+# Ignore raw uncompressed video (>100MB)
 assets/videos/*.mov
-assets/videos/*.mp4
 
-# OS and temporary files
+# Dependencies and OS files
+node_modules/
+package.json
+package-lock.json
 .DS_Store
 Thumbs.db
-node_modules/
