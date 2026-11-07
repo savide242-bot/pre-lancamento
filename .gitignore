@@ -1,0 +1,8 @@
+# Large video files (>100MB exceeds GitHub push limit without Git LFS)
+assets/videos/*.mov
+assets/videos/*.mp4
+
+# OS and temporary files
+.DS_Store
+Thumbs.db
+node_modules/
