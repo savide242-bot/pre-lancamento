@@ -80,6 +80,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const audioLabel = document.getElementById('audioLabel');
   const togglePlayBtn = document.getElementById('togglePlayBtn');
   const playIcon = document.getElementById('playIcon');
+  const toggleFullscreenBtn = document.getElementById('toggleFullscreenBtn');
 
   if (heroVideo) {
     // Attempt auto-play with sound muted
@@ -109,6 +110,20 @@ document.addEventListener('DOMContentLoaded', () => {
         } else {
           heroVideo.pause();
           if (playIcon) playIcon.textContent = '▶️';
+        }
+      });
+    }
+
+    if (toggleFullscreenBtn) {
+      toggleFullscreenBtn.addEventListener('click', () => {
+        if (heroVideo.requestFullscreen) {
+          heroVideo.requestFullscreen();
+        } else if (heroVideo.webkitRequestFullscreen) {
+          heroVideo.webkitRequestFullscreen();
+        } else if (heroVideo.webkitEnterFullscreen) {
+          heroVideo.webkitEnterFullscreen(); // iOS Safari
+        } else if (heroVideo.msRequestFullscreen) {
+          heroVideo.msRequestFullscreen();
         }
       });
     }
@@ -166,7 +181,6 @@ document.addEventListener('DOMContentLoaded', () => {
   
   const prevBtn = document.getElementById('carouselPrevBtn');
   const nextBtn = document.getElementById('carouselNextBtn');
-  const tabs = document.querySelectorAll('.carousel-tab');
   const dots = document.querySelectorAll('.carousel-dots .dot');
 
   function renderSlide(index) {
@@ -192,17 +206,6 @@ document.addEventListener('DOMContentLoaded', () => {
     if (carouselFeatureDesc) carouselFeatureDesc.textContent = data.desc;
     if (carouselPerkText) carouselPerkText.textContent = data.perk;
 
-    // Tabs active update
-    tabs.forEach((tab, i) => {
-      if (i === currentSlideIndex) {
-        tab.classList.add('active');
-        tab.setAttribute('aria-selected', 'true');
-      } else {
-        tab.classList.remove('active');
-        tab.setAttribute('aria-selected', 'false');
-      }
-    });
-
     // Dots active update
     dots.forEach((dot, i) => {
       if (i === currentSlideIndex) {
@@ -225,16 +228,6 @@ document.addEventListener('DOMContentLoaded', () => {
       renderSlide(currentSlideIndex - 1);
     });
   }
-
-  // Direct tab clicks
-  tabs.forEach(tab => {
-    tab.addEventListener('click', () => {
-      const slide = parseInt(tab.getAttribute('data-slide'), 10);
-      if (!isNaN(slide)) {
-        renderSlide(slide);
-      }
-    });
-  });
 
   // Direct dot clicks
   dots.forEach(dot => {
@@ -277,23 +270,6 @@ document.addEventListener('DOMContentLoaded', () => {
         } else {
           renderSlide(currentSlideIndex - 1); // Swipe right -> Prev
         }
-      }
-    }, { passive: true });
-  }
-
-
-  /* ==========================================================================
-     4. MOBILE STICKY CONVERSION BAR ON SCROLL
-     ========================================================================== */
-  const mobileStickyBar = document.getElementById('mobileStickyBar');
-  
-  if (mobileStickyBar) {
-    window.addEventListener('scroll', () => {
-      const scrollPosition = window.scrollY || document.documentElement.scrollTop;
-      if (scrollPosition > 350) {
-        mobileStickyBar.classList.add('visible');
-      } else {
-        mobileStickyBar.classList.remove('visible');
       }
     }, { passive: true });
   }
